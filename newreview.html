@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+    <title>Rate My Course</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand"><i class="fas fa-chalkboard-teacher"></i> Rate My Course</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+
+	        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	            <ul class="navbar-nav">
+	                <li class="nav-item mx-1">
+	                    <a class="nav-link mx-1" href="newreview.html">Create Review</a>
+	                </li>
+	                <li class="nav-item mx-1">
+	                    <a class="nav-link" href="profile.html">Profile</a>
+	                </li>
+	                <li class="nav-item mx-1">
+	                    <a class="nav-link" href="#">Login</a>
+	                </li>
+	                <li class="nav-item mx-1">
+	                    <a class="nav-link" href="#">Signup</a>
+	                </li>
+	            </ul>
+	        </div>
+        </div>
+    </nav>
+
+    <div class="container border rounded my-5 w-50 p-4">
+        <h1 class="mb-4">Create a New Review</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="course">Course Title</label>
+                <input type="text" class="form-control" id="course" placeholder="Course Title">
+            </div>
+            <div class="form-group">
+                <label for="course">Major</label>
+                <input type="text" class="form-control" id="major" placeholder="Major">
+            </div>
+            <div class="form-group">
+                <label for="course">College</label>
+                <input type="text" class="form-control" id="college" placeholder="College Name">
+            </div>
+            <div class="form-group">
+                <label for="difficultyRating">Difficulty Rating (1-10)</label>
+                <input type="range" class="form-control-range" id="difficultyRating" min="1" max="10" list="tickmarks">
+            </div>
+            <div class="form-group">
+                <label for="workloadRating">Workload Rating (1-10)</label>
+                <input type="range" class="form-control-range" id="workloadRating" min="1" max="10" list="tickmarks">
+            </div>
+            <div class="form-group">
+                <label for="interestRating">Interest Rating (1-10)</label>
+                <input type="range" class="form-control-range" id="interestRating" min="1" max="10" list="tickmarks">
+                <datalist id="tickmarks">
+                    <option value="1" label="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5" label="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10" label="10"></option>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments and Tips</label>
+                <textarea class="form-control" id="comments" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>        
+    </div>  
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
