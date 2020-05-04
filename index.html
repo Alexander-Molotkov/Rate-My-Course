@@ -40,8 +40,12 @@
         </div>
     </nav>
 
+    <section id="header" class="jumbotron text-center container mt-4 py-4">
+        <h1><i class="fas fa-chalkboard-teacher"></i> Rate My Course</h1>
+    </section>
+
     <div class="container border rounded my-5 w-50 p-4">
-        <h1 class="mb-4">Create a New Review</h1>
+        <h1 class="mb-4">Search for a course</h1>
 
         <form>
             <div class="form-group">
@@ -56,38 +60,13 @@
                 <label for="course">College</label>
                 <input type="text" class="form-control" id="college" placeholder="College Name">
             </div>
-            <div class="form-group">
-                <label for="difficultyRating">Difficulty Rating (1-10)</label>
-                <input type="range" class="form-control-range" id="difficultyRating" min="1" max="10" list="tickmarks">
-            </div>
-            <div class="form-group">
-                <label for="workloadRating">Workload Rating (1-10)</label>
-                <input type="range" class="form-control-range" id="workloadRating" min="1" max="10" list="tickmarks">
-            </div>
-            <div class="form-group">
-                <label for="interestRating">Interest Rating (1-10)</label>
-                <input type="range" class="form-control-range" id="interestRating" min="1" max="10" list="tickmarks">
-                <datalist id="tickmarks">
-                    <option value="1" label="1"></option>
-                    <option value="2"></option>
-                    <option value="3"></option>
-                    <option value="4"></option>
-                    <option value="5" label="5"></option>
-                    <option value="6"></option>
-                    <option value="7"></option>
-                    <option value="8"></option>
-                    <option value="9"></option>
-                    <option value="10" label="10"></option>
-                </datalist>
-            </div>
-            <div class="form-group">
-                <label for="comments">Comments and Tips</label>
-                <textarea class="form-control" id="comments" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>        
-    </div>  
+                <div class="col-md-4 center-block"> 
+                  <button type="button" class="btn btn-secondary center-block">Search</button>
+                </div>
+          </form>
+      </div>
 
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
