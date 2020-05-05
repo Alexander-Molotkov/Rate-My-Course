@@ -12,7 +12,6 @@
 
     <title>Rate My Course</title>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container">
@@ -39,6 +38,7 @@
 	        </div>
         </div>
     </nav>
+
     <!-- Modal -->
   <div class="modal fade" id="login_modal" role="dialog">
     <div class="modal-dialog">
@@ -72,14 +72,16 @@
     </div>
   </div> 
 
+
     <div class="container my-2">
     	<a class="text-dark" href="index.html">Search Again</a>
     </div>
 
-    <section id="header" class="jumbotron container mt-2 py-4">
-        <h1 class="display-3">COURSE NAME</h1>
-        <p class="lead">COLLEGE NAME</p>
-        <p class="lead">MAJOR NAME</p>
+    <section id="header" class="jumbotron text-center container mt-4 py-4">
+        <h4 class="display-4 mb-3">Search Results</h4>
+        <h5 class="card-title"><a class="text-dark">Searched Course Title </h5>
+        <h6 class="card-subtitle mb-2 text-muted">Searched Major</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Searched College</h6>
     </section>
 
     <section id="reviews">
@@ -89,19 +91,15 @@
                     <div class="card">
                         <img class="card-img-top" src="imgs/pattern1.jpeg" alt="">
                         <div class="card-body">
-                            <h5 class="card-title">Review Title 1</h5>
+                            <h5 class="card-title"><a class="text-dark" href="course.html">Course Title 1</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Major - Course Major</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">College - Course College</h6>
                             	<div class="row justify-content-between mx-0">
 		                            <h6 class="card-subtitle mb-2 text-muted">Difficulty - 10.0</h6>
 		                            <h6 class="card-subtitle mb-2 text-muted">Workload - 10.0</h6>
 		                            <h6 class="card-subtitle mb-2 text-muted">Interest - 10.0</h6>
                             	</div>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <a href="profile.html" class="font-italic text-muted">Author - Username</a>
+                            <p class="card-text">Course Description - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corrupti quam magnam! Veniam, dolorum facere? Commodi, ut. Et, itaque quam!</p>
                         </div>
                     </div>
                 </div>
@@ -111,19 +109,15 @@
                     <div class="card">
                         <img class="card-img-top" src="imgs/pattern1.jpeg" alt="">
                         <div class="card-body">
-                            <h5 class="card-title">Review Title 2</h5>
+                            <h5 class="card-title"><a class="text-dark" href="course.html">Course Title 2</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Major - Course Major</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">College - Course College</h6>
                             	<div class="row justify-content-between mx-0">
 		                            <h6 class="card-subtitle mb-2 text-muted">Difficulty - 10.0</h6>
 		                            <h6 class="card-subtitle mb-2 text-muted">Workload - 10.0</h6>
 		                            <h6 class="card-subtitle mb-2 text-muted">Interest - 10.0</h6>
                             	</div>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <a href="profile.html" class="font-italic text-muted">Author - Username</a>
+                            <p class="card-text">Course Description - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corrupti quam magnam! Veniam, dolorum facere? Commodi, ut. Et, itaque quam!</p>
                         </div>
                     </div>
                 </div>
@@ -139,6 +133,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
+  
     <script>
       $(document).ready(function () {
         $("#login").click(function () {
@@ -149,5 +144,6 @@
 
 
 </body>
+
 
 </html>
