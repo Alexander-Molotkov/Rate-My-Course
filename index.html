@@ -57,11 +57,11 @@
           <form role="form">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" id="usrname">
+              <input type="text" class="form-control" id="usrname" required>
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" id="psw">
+              <input type="password" class="form-control" id="psw" required>
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
@@ -76,6 +76,7 @@
     </div>
   </div> 
 
+
     <section id="header" class="jumbotron text-center container mt-4 py-4">
         <h1><i class="fas fa-chalkboard-teacher"></i> Rate My Course</h1>
     </section>
@@ -84,21 +85,33 @@
         <h1 class="mb-4">Search for a course</h1>
 
         <form>
+
+            <div class="form-group">
+                <label for="course">College</label>
+                <input type="text" class="form-control" id="college" placeholder="College Name" required>
+            </div>
+
             <div class="form-group">
                 <label for="course">Course Title</label>
-                <input type="text" class="form-control" id="course" placeholder="Course Title">
+                <input type="text" class="form-control" id="course" placeholder="Course Title" required>
             </div>
+
+
             <div class="form-group">
                 <label for="course">Major</label>
                 <input type="text" class="form-control" id="major" placeholder="Major">
             </div>
-            <div class="form-group">
-                <label for="course">College</label>
-                <input type="text" class="form-control" id="college" placeholder="College Name">
+
+   
+             <div class="form-group">
+                <label for="course">Author</label>
+                <input type="text" class="form-control" id="Author" placeholder="Author">
             </div>
-                <div class="col-md-4 center-block"> 
-                  <button type="button" onclick="location.href = 'results.html'" class="btn btn-secondary center-block">Search</button>
-                </div>
+
+            <div class="col-md-4 center-block"> 
+                  <button type="button" onclick="" class="btn btn-secondary center-block">Search</button>
+            </div>
+
           </form>
       </div>
 
