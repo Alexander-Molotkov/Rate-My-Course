@@ -4,7 +4,7 @@
 -- Display Data
 SELECT Authors.username, 
        Courses.courseTitle,
-       Majors.majorTitle, 
+       GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle, 
        Colleges.collegeName, 
        Reviews.reviewTitle,
        Reviews.difficultyRating,
@@ -17,7 +17,8 @@ SELECT Authors.username,
         INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID
         INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID
         INNER JOIN Majors ON Majors.majorID = Majors_Courses.majorID
-    WHERE Authors.authorID = :authorIDInput;
+    WHERE Authors.authorID = :authorIDInput
+    GROUP BY Courses.courseID;
 
 -- Delete Profile
 DELETE FROM Authors

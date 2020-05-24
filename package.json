@@ -1,0 +1,24 @@
+{
+  "name": "rate-my-course",
+  "version": "1.0.0",
+  "description": "Rate-my-course database app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexander-Molotkov/Rate-My-Course.git"
+  },
+  "author": "Nicolas Cortes & Alexander-Molotkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexander-Molotkov/Rate-My-Course/issues"
+  },
+  "homepage": "https://github.com/Alexander-Molotkov/Rate-My-Course#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mysql": "^2.18.1"
+  }
+}
