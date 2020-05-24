@@ -9,7 +9,11 @@ app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", 7005);
 
-// SHOW ROUTE for main page
+// ----------------------------------------------
+// HOME PAGE
+// ----------------------------------------------
+
+// READ ROUTE for main page
 app.get("/", function(req, res, next){
 	var context = {};
 	var queryString = `SELECT * FROM Colleges;`;
@@ -24,7 +28,11 @@ app.get("/", function(req, res, next){
 	});
 });
 
-// SHOW ROUTE for profiles
+// ----------------------------------------------
+// PROFILE PAGE
+// ----------------------------------------------
+
+// READ ROUTE for profiles
 app.get("/profile", function(req, res, next){
 	var context = {};
 	var queryString = `SELECT Authors.username, 
@@ -55,11 +63,14 @@ app.get("/profile", function(req, res, next){
 	});
 });
 
-// SHOW ROUTE for Register College
+// ----------------------------------------------
+// REGISTER COLLEGE PAGE
+// ----------------------------------------------
+
+// READ ROUTE for Register College
 app.get("/newcollege", function(req, res, next){
 	res.render("newcollege");
 });
-
 // CREATE ROUTE for Colleges
 app.post("/newcollege", function(req, res, next){
 	var queryString = `INSERT INTO Colleges(collegeName, state)
@@ -76,7 +87,32 @@ app.post("/newcollege", function(req, res, next){
 	});
 });
 
+// ----------------------------------------------
+// SIGNUP PAGE
+// ----------------------------------------------
+
+// READ ROUTE for Signup
+app.get("/signup", function(req, res, next){
+	res.render("signup");
+});
+// CREATE ROUTE for Signup
+app.post("/signup", function(req, res, next){
+	var queryString = `INSERT INTO Authors(username, password) VALUES (?, ?);`;
+	var newAuthor = [req.body.username, req.body.password];
+
+	console.log(req.body);
+	mysql.pool.query(queryString, newAuthor, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		res.redirect("/");
+	});
+});
+
+// ----------------------------------------------
 // ERROR HANDLING
+// ----------------------------------------------
 app.use(function (req, res) {
 	res.status(404);
 	res.render("404");
