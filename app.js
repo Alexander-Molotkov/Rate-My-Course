@@ -1,13 +1,31 @@
 var express    = require("express");
 var mysql      = require("./dbcon.js");
 var app        = express();
+var bodyParser = require("body-parser");
 var handlebars = require("express-handlebars").create({defaultLayout: "main"});
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", 7005);
 
+// SHOW ROUTE for main page
 app.get("/", function(req, res, next){
+	var context = {};
+	var queryString = `SELECT * FROM Colleges;`;
+	mysql.pool.query(queryString, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		context.rows = rows;
+		console.log(context);
+		res.render("home", context);
+	});
+});
+
+// SHOW ROUTE for profiles
+app.get("/profile", function(req, res, next){
 	var context = {};
 	var queryString = `SELECT Authors.username, 
 		Courses.courseTitle, 
@@ -33,11 +51,30 @@ app.get("/", function(req, res, next){
 		}
 		context.rows = rows;
 		console.log(context);
-		console.log(rows);
 		res.render("profile", context);
 	});
 });
 
+// SHOW ROUTE for Register College
+app.get("/newcollege", function(req, res, next){
+	res.render("newcollege");
+});
+
+// CREATE ROUTE for Colleges
+app.post("/newcollege", function(req, res, next){
+	var queryString = `INSERT INTO Colleges(collegeName, state)
+	VALUES (?, ?);`;
+	var newCollege = [req.body.collegeName, req.body.state];
+
+	console.log(req.body);
+	mysql.pool.query(queryString, newCollege, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		res.redirect("/");
+	});
+});
 
 // ERROR HANDLING
 app.use(function (req, res) {

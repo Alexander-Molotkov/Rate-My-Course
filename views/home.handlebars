@@ -1,0 +1,40 @@
+<section id="header" class="jumbotron text-center container mt-4 py-4">
+    <h1><i class="fas fa-chalkboard-teacher"></i> Rate My Course</h1>
+</section>
+
+<div class="container border rounded my-5 w-50 p-4">
+    <h1 class="mb-4">Search for a course</h1>
+
+    <form action="results.html">
+
+        <div class="form-group">
+            <label for="college">College</label><br />
+            <select id="college">
+                <option disabled selected value> -- Select College -- </option>
+                {{#each rows}}
+                <option value="{{this.collegeID}}">{{this.collegeName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="major">Major</label>
+            <input type="text" class="form-control" id="major" placeholder="Major">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Course Title</label>
+            <input type="text" class="form-control" id="course" placeholder="Course Title" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="Author" placeholder="Author">
+        </div>
+
+        <div class="col-md-4 center-block">
+            <button type="submit" class="btn btn-secondary center-block">Search</button>
+        </div>
+
+    </form>
+</div>
