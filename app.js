@@ -7,7 +7,7 @@ var handlebars = require("express-handlebars").create({defaultLayout: "main"});
 app.use(bodyParser.urlencoded({extended: true}));
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
-app.set("port", 7005);
+app.set("port", 4745);
 
 // ----------------------------------------------
 // HOME PAGE
