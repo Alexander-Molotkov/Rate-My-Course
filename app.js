@@ -138,6 +138,7 @@ app.get("/course/:id", function(req, res, next){
 app.get("/profile/:id", function(req, res, next){
 	var context = {};
 	var queryString = `SELECT Authors.username, 
+		Courses.courseID,
 		Courses.courseTitle, 
 		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle,  
 		Colleges.collegeName, 

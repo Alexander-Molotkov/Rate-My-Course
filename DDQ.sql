@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `Courses`;
 CREATE TABLE `Courses`
 (
     `courseID` int(11) NOT NULL AUTO_INCREMENT, 
-    `collegeID` int(11),
+    `collegeID` int(11) NOT NULL,
 	`courseTitle` varchar(50) NOT NULL,
 	`professor` varchar(30) NOT NULL,
     PRIMARY KEY(`courseID`),

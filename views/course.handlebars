@@ -11,6 +11,9 @@
 
 <section id="reviews">
     <div class="container">
+        {{#unless rows}}
+        <h5 class="row justify-content-center my-5">Course does not have reviews</h5>
+        {{/unless}}
 
         {{#each rows}}
         <div class="row justify-content-center">
