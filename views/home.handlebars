@@ -5,11 +5,11 @@
 <div class="container border rounded my-5 w-50 p-4">
     <h1 class="mb-4">Search for a course</h1>
 
-    <form action="results.html">
+    <form action="/search" method="GET">
 
         <div class="form-group">
-            <label for="college">College</label><br />
-            <select id="college">
+            <label for="college">College <em>*(required)</em></label><br />
+            <select id="college" name="collegeID" required>
                 <option disabled selected value> -- Select College -- </option>
                 {{#each rows}}
                 <option value="{{this.collegeID}}">{{this.collegeName}}</option>
@@ -19,19 +19,14 @@
 
         <div class="form-group">
             <label for="major">Major</label>
-            <input type="text" class="form-control" id="major" placeholder="Major">
+            <input type="text" class="form-control" name="majorTitle" id="major" placeholder="Major">
         </div>
 
         <div class="form-group">
             <label for="title">Course Title</label>
-            <input type="text" class="form-control" id="course" placeholder="Course Title" required>
+            <input type="text" class="form-control" name="courseTitle" id="course" placeholder="Course Title">
         </div>
         
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" class="form-control" id="Author" placeholder="Author">
-        </div>
-
         <div class="col-md-4 center-block">
             <button type="submit" class="btn btn-secondary center-block">Search</button>
         </div>

@@ -1,0 +1,36 @@
+<div class="container my-2">
+    <a class="text-dark" href="/">Search Again</a>
+</div>
+
+<section id="header" class="jumbotron text-center container mt-4 py-4">
+    <h4 class="display-4 mb-3">Search Results</h4>
+    <h5 class="card-title">Search Parameters</h5>
+    <h6 class="card-subtitle mb-2 text-muted">College: {{college.[0].collegeName}}, {{college.[0].state}} </h6>
+    {{#if query.majorTitle}}
+    <h6 class="card-subtitle mb-2 text-muted">Major: {{query.majorTitle}} </h6>
+    {{/if}}
+    {{#if query.courseTitle}}
+    <h6 class="card-subtitle mb-2 text-muted">Course: {{query.courseTitle}}</h6>
+    {{/if}}
+</section>
+
+<section id="reviews">
+    <div class="container">
+
+        {{#each rows}}
+        <div class="row justify-content-center">
+            <div class="col-sm-12 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="text-dark" href="/course/{{this.courseID}}">{{this.courseTitle}}</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">College - {{this.collegeName}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Major - {{this.majorTitle}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</section>

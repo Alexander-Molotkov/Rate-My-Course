@@ -29,11 +29,113 @@ app.get("/", function(req, res, next){
 });
 
 // ----------------------------------------------
+// SEARCH RESULTS PAGE
+// ----------------------------------------------
+
+// READ ROUTE for search results
+app.get("/search", function(req, res, next){
+	var context = {};
+	var queryString = `SELECT Courses.courseID, 
+		Courses.courseTitle, 
+		Colleges.collegeName, 
+		Colleges.state, 
+		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle
+	FROM Courses
+		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID
+		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID
+		INNER JOIN Majors ON Majors_Courses.majorID = Majors.majorID
+	WHERE 
+		Colleges.collegeID = ${mysql.pool.escape(Number(req.query.collegeID))} 
+		${req.query.majorTitle ? ' AND Majors.majorTitle LIKE ' + mysql.pool.escape('%' + req.query.majorTitle + '%'): ''} 
+		${req.query.courseTitle ? ' AND Courses.courseTitle LIKE ' + mysql.pool.escape('%' + req.query.courseTitle + '%'): ''}
+	GROUP BY Courses.courseID;`; 
+		console.log(queryString);  // for debugging
+	
+	// Search Query 
+	mysql.pool.query(queryString, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		context.query = req.query;
+		context.rows = rows;
+		// Query to get info from college selected
+		mysql.pool.query('SELECT * FROM Colleges WHERE collegeID = ?', Number(req.query.collegeID), function(err,rows,fields){
+			if(err){
+				next(err);
+				return;
+			}
+			context.college = rows;
+			console.log(context);
+			res.render("search", context);
+		});
+	});
+});
+
+// ----------------------------------------------
+// COURSE PAGE
+// ----------------------------------------------
+
+// READ ROUTE for courses
+app.get("/course/:id", function(req, res, next){
+	var context = {};
+	var queryStringCourse = `SELECT Courses.courseID, 
+		Courses.courseTitle, 
+		Colleges.collegeName, 
+		Colleges.state, 
+		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle
+	FROM Courses
+		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID
+		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID
+		INNER JOIN Majors ON Majors_Courses.majorID = Majors.majorID
+	WHERE 
+		Courses.courseID = ${mysql.pool.escape(Number(req.params.id))}
+	GROUP BY Courses.courseID;`;	
+	var queryStringReviews = `SELECT Courses.courseTitle,
+		Colleges.collegeName, 
+		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle, 
+		Reviews.reviewTitle,
+		Reviews.difficultyRating,
+		Reviews.workloadRating,
+		Reviews.interestRating,
+		Reviews.comments,
+		Authors.username,
+		Authors.authorID 
+	FROM Reviews
+		LEFT JOIN Authors ON Authors.authorID = Reviews.authorID
+		INNER JOIN Courses ON Reviews.courseID = Courses.courseID
+		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID
+		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID
+		INNER JOIN Majors ON Majors.majorID = Majors_Courses.majorID
+	WHERE Courses.courseID = ${mysql.pool.escape(Number(req.params.id))}
+	GROUP BY Reviews.reviewID;`; 
+
+	// Query for course information
+	mysql.pool.query(queryStringCourse, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		context.course = rows;
+		// Query for reviews information
+		mysql.pool.query(queryStringReviews, function(err, rows, fields){
+			if(err){
+				next(err);
+				return;
+			}
+			context.rows = rows;
+			console.log(context);
+			res.render("course", context);
+		});
+	});
+});
+
+// ----------------------------------------------
 // PROFILE PAGE
 // ----------------------------------------------
 
 // READ ROUTE for profiles
-app.get("/profile", function(req, res, next){
+app.get("/profile/:id", function(req, res, next){
 	var context = {};
 	var queryString = `SELECT Authors.username, 
 		Courses.courseTitle, 
@@ -50,16 +152,25 @@ app.get("/profile", function(req, res, next){
 		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID 
 		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID 
 		INNER JOIN Majors ON Majors.majorID = Majors_Courses.majorID 
-	WHERE Authors.authorID = 1
+	WHERE Authors.authorID = ${Number(req.params.id)}
 	GROUP BY Courses.courseID;`;
+
+	// Query for reviews info
 	mysql.pool.query(queryString, function(err, rows, fields){
 		if(err){
 			next(err);
 			return;
 		}
 		context.rows = rows;
-		console.log(context);
-		res.render("profile", context);
+		mysql.pool.query(`SELECT * FROM Authors WHERE authorID = ${Number(req.params.id)}`, function(err, rows, fields){
+			if(err){
+				next(err);
+				return;
+			}
+			context.author = rows;
+			console.log(context);
+			res.render("profile", context);
+		});
 	});
 });
 
