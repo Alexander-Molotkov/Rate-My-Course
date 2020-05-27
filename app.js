@@ -2,9 +2,11 @@ var express    = require("express");
 var mysql      = require("./dbcon.js");
 var app        = express();
 var bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
 var handlebars = require("express-handlebars").create({defaultLayout: "main"});
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", 4745);
@@ -23,7 +25,8 @@ app.get("/", function(req, res, next){
 			return;
 		}
 		context.rows = rows;
-		console.log(context);
+        console.log(context);
+        console.log(req.cookies)
 		res.render("home", context);
 	});
 });
@@ -134,45 +137,119 @@ app.get("/course/:id", function(req, res, next){
 // PROFILE PAGE
 // ----------------------------------------------
 
-// READ ROUTE for profiles
-app.get("/profile/:id", function(req, res, next){
-	var context = {};
-	var queryString = `SELECT Authors.username, 
-		Courses.courseTitle, 
-		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle,  
-		Colleges.collegeName, 
-		Reviews.reviewTitle, 
-		Reviews.difficultyRating, 
-		Reviews.workloadRating, 
-		Reviews.interestRating, 
-		Reviews.comments 
- 	FROM Authors 
-		INNER JOIN Reviews ON Authors.authorID = Reviews.authorID 
-		INNER JOIN Courses ON Reviews.courseID = Courses.courseID 
-		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID 
-		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID 
-		INNER JOIN Majors ON Majors.majorID = Majors_Courses.majorID 
-	WHERE Authors.authorID = ${Number(req.params.id)}
-	GROUP BY Courses.courseID;`;
 
-	// Query for reviews info
-	mysql.pool.query(queryString, function(err, rows, fields){
-		if(err){
-			next(err);
-			return;
-		}
-		context.rows = rows;
-		mysql.pool.query(`SELECT * FROM Authors WHERE authorID = ${Number(req.params.id)}`, function(err, rows, fields){
-			if(err){
-				next(err);
-				return;
-			}
-			context.author = rows;
-			console.log(context);
-			res.render("profile", context);
-		});
-	});
+// User Already logged in
+app.get("/profile", function (req, res, next) {
+
+    context = {};
+
+    authorID = -1;
+    var queryString = `SELECT authorID
+    FROM Authors
+    WHERE Authors.username = LOWER(${mysql.pool.escape(req.cookies.USERNAME)})`;
+
+
+    mysql.pool.query(queryString, function (err, rows, fields) {
+        if (err) {
+            next(err);
+            return;
+        }
+
+        authorID = rows[0].authorID;
+
+        context.rows = rows;
+        mysql.pool.query(`SELECT * FROM Authors WHERE authorID = ${mysql.pool.escape(Number(authorID))}`, function (err, rows, fields) {
+            if (err) {
+                next(err);
+                return;
+            }
+
+            context.author = rows;
+            console.log(context);
+            res.render("profile", context);
+        });
+    });
+
+
 });
+
+//User login
+app.post("/login", function (req, res, next) {
+
+    console.log(req.body);
+
+    //Check username and password
+    authorID = -1;
+    var queryString = `SELECT authorID
+    FROM Authors
+    WHERE Authors.username = LOWER(${mysql.pool.escape(req.body.usrname)})
+    AND Authors.password = ${mysql.pool.escape(req.body.psw)}`;
+
+    mysql.pool.query(queryString, function (err, rows, fields) {
+        if (err) {
+            next(err);
+            return;
+        }
+
+        //Check username and password
+        if (rows[0] != undefined) {
+
+            //Username and password is valid
+            authorID = rows[0].authorID;
+            //Store login cookie
+            res.cookie('USERNAME', req.body.usrname);
+
+            //User logging in
+            var context = {};
+            var queryString = `SELECT Authors.username, 
+	    	    Courses.courseTitle, 
+	    	    GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle,  
+	        	Colleges.collegeName, 
+	        	Reviews.reviewTitle, 
+	        	Reviews.difficultyRating, 
+	        	Reviews.workloadRating, 
+	        	Reviews.interestRating, 
+	        	Reviews.comments 
+ 	        FROM Authors 
+	        	INNER JOIN Reviews ON Authors.authorID = Reviews.authorID 
+	        	INNER JOIN Courses ON Reviews.courseID = Courses.courseID 
+	        	INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID 
+	        	INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID 
+	        	INNER JOIN Majors ON Majors.majorID = Majors_Courses.majorID 
+	        WHERE Authors.authorID = ` + authorID +
+                ` GROUP BY Courses.courseID;`;
+
+            // Query for reviews info
+            mysql.pool.query(queryString, function (err, rows, fields) {
+                if (err) {
+                    next(err);
+                    return;
+                }
+
+                context.rows = rows;
+                mysql.pool.query(`SELECT * FROM Authors WHERE authorID = ${mysql.pool.escape(Number(authorID))}`, function (err, rows, fields) {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                    context.author = rows;
+                    console.log(context);
+                    res.render("profile", context);
+                });
+            });
+        } else {
+            //Username/Password not recognized
+            res.render("invalidLogin");
+        }
+    });
+});
+
+//User logout
+app.get("/logout", function (req, res, next) {
+    res.clearCookie('USERNAME');
+    res.redirect("/");
+});
+
 
 // ----------------------------------------------
 // REGISTER COLLEGE PAGE
@@ -196,6 +273,13 @@ app.post("/newcollege", function(req, res, next){
 		}
 		res.redirect("/");
 	});
+});
+
+// ----------------------------------------------
+// CREATE REVIEW PAGE
+// ----------------------------------------------
+app.get("/newreview", function (req, res, next) {
+    res.render("newreview");
 });
 
 // ----------------------------------------------
@@ -239,4 +323,8 @@ app.listen(app.get("port"), function () {
 	console.log("Express started on http://flip2.engr.oregonstate.edu:" +
 			app.get("port") +
 			"; press Ctrl-C to terminate.");
+});
+
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
 });
