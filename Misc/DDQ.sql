@@ -17,10 +17,14 @@ CREATE TABLE `Authors`
 LOCK TABLES `Authors` WRITE;
 INSERT INTO `Authors`
 VALUES 
-    (1, 'Foo', 'Bar'),
-    (2, 'Foo1', 'Bar1'),
-    (3, 'Foo3', 'Bar2'),
-    (4, 'Foo4', 'Bar2');
+    (1, 'Claude', 'password'),
+    (2, 'Alethea', 'password'),
+    (3, 'Malcolm', 'password'),
+    (4, 'Chantel', 'password'),
+    (5, 'Oda', 'password'),
+    (6, 'Tyree', 'password'),
+    (7, 'Larue', 'password'),
+    (8, 'Janell', 'password');
 UNLOCK TABLES;
 
 -- *********************************
@@ -41,10 +45,10 @@ CREATE TABLE `Colleges`
 LOCK TABLES `Colleges` WRITE;
 INSERT INTO `Colleges`
 VALUES 
-    (1, 'AZ_State', 'AZ'),
-    (2, 'BC_State', 'BC'),
-    (3, 'DC_State', 'DC'),
-    (4, 'QW_State', 'QW');
+    (1, 'Skyline College', 'AL'),
+    (2, 'Mammoth College', 'FL'),
+    (3, 'Sunny Coast College', 'HI'),
+    (4, 'Fortuna College', 'KY');
 UNLOCK TABLES;
 
 -- *********************************
@@ -72,11 +76,21 @@ CREATE TABLE `Courses`
 LOCK TABLES `Courses` WRITE;
 INSERT INTO `Courses`
 VALUES 
-    (1, 1, 'Math', 'foobar'),
-    (2, 2, 'Social studies', 'barfoo'),
-    (3, 3, 'PE', 'foobar'),
-    (4, 4, 'Writing', 'barfoo'),
-    (5, NULL, 'Writing', 'ProfessorX');
+    (1, 1, 'Math', 'Nicola Roberto'),
+    (2, 2, 'Social studies', 'Adrien Josephson'),
+    (3, 3, 'PE', 'Sherman Yohe'),
+    (4, 4, 'Writing', 'Celina Huckabee'),
+    (5, 1, 'Magic Infusion', 'Lawanda Cann'),
+    (6, 1, 'Galactic Business', 'Barbie Tardy'),
+    (7, 1, 'Planetary History', 'Afton Hayward'),
+    (8, 1, 'Writing', 'Hyacinth Ruzicka'),
+    (9, 3, 'Math', 'Chasidy Peckham'),
+    (10, 1, 'PE', 'Rod Hage'),
+    (11, 4, 'Social studies', 'Seth Alequin'),
+    (12, 1, 'Intro to Databases', 'Lola Drennen'),
+    (13, 2, 'Intro to Databases', 'Janet Hedlund'),
+    (14, 3, 'Intro to Databases', 'Marie Gerry'),
+    (15, 4, 'Intro to Databases', 'Tillie Saidi');
 UNLOCK TABLES;
 
 -- *********************************
@@ -114,10 +128,24 @@ CREATE TABLE `Reviews`
 LOCK TABLES `Reviews` WRITE;
 INSERT INTO `Reviews`
 VALUES 
-    (1, 1, 1, 'Rev1', 5, 3, 2, 'Comments for Rev1'),
-    (2, 2, 2, 'Rev2', 6, 1, 2, 'Comments for Rev2'),
-    (3, 3, 3, 'Rev3', 5, 5, 7, 'Comments for Rev3'),
-    (4, 4, NULL, 'Rev4', 8, 1, 9, NULL);
+    (1, 1, 1, 'premium', 10, 7, 4, 'This beautifully written story with an intriguing plot and lovable characters. I’m only sad that it had to end.'),
+    (2, 2, 2, 'light', 9, 3, 4, "School is learning things you don't want to know, surrounded by people you wish you didn't know, while working toward a future you don't know will ever come."),
+    (3, 3, 3, 'polite', 5, 5, 7, "The most important thing we learn at school is the fact that the most important things can't be learned at school."),
+    (4, 4, 4, 'wakeful', 7, 4, 10, "In school they told me Practice makes perfect. And then they told me Nobody's perfect, so then I stopped practicing."),
+    (5, 1, 5, 'true', 5, 5, 7, "We all learn by experience but some of us have to go to summer school."),
+    (6, 2, 6, 'psychedelic', 3, 8, 1, "You can drag my body to school but my spirit refuses to go."),
+    (7, 3, 7, 'sweet', 5, 5, 7, "As long as teachers give tests, there will always be prayer in schools."),
+    (8, 4, 8, 'dynamic', 7, 6, 8, "A man who has never gone to school may steal from a freight car; but if he has a university education, he may steal the whole railroad."),
+    (9, 5, 1, 'bumpy', 8, 1, 5, "There are only two places in the world where time takes precedence over the job to be done: school and prison."),
+    (10, 6, 2, 'capricious', 10, 10, 2, "School is one long illness with symptoms that switch every five minutes so you think it's getting better or worse. But really it's the same thing for years and years."),
+    (11, 7, 3, 'silent', 7, 10, 8, "As long as algebra is taught in school, there will be prayer in school."),
+    (12, 8, 4, 'tiresome', 6, 9, 7, "If there were no schools to take the children away from home part of the time, the insane asylums would be filled with mothers."),
+    (13, 9, 5, 'comfortable', 10, 5, 5, "School is practice for future life, practice makes perfect and nobody's perfect, so why practice?"),
+    (14, 10, 6, 'ad hoc', 8, 4, 9, "In school one learns to ask stupid questions of life."),
+    (15, 11, 7, 'therapeutic', 5, 8, 4, "School is the advertising agency which makes you believe that you need the society as it is."),
+    (16, 12, 8, 'outstanding', 10, 10, 10, "The trouble with school is they give you the answer, then they give you the exam. That's not life...."),
+    (17, 13, NULL, 'heavy', 10, 10, 10, "No school without spectacular eccentrics and crazy hearts is worth attending."),
+    (18, 14, NULL, '=)', 10, 1, 10, "No Comment");
 UNLOCK TABLES;
 
 -- *********************************
@@ -138,10 +166,10 @@ CREATE TABLE `Majors`
 LOCK TABLES `Majors` WRITE;
 INSERT INTO `Majors`
     VALUES
-        (1, 'major 1'),
-        (2, 'major 2'),
-        (3, 'major 3'),
-        (4, 'major 4');
+        (1, 'Wizardry'),
+        (2, 'Politics'),
+        (3, 'Adulting'),
+        (4, 'Undeclared');
 UNLOCK TABLES;
 
 -- *********************************
@@ -173,9 +201,23 @@ LOCK TABLES `Majors_Courses` WRITE;
 INSERT INTO `Majors_Courses`
     VALUES
         (1, 1),
-        (2, 3),
-        (3, 2),
+        (2, 2),
+        (3, 3),
         (4, 4),
+        (1, 5),
+        (2, 6),
+        (3, 7),
+        (4, 8),
+        (1, 9),
+        (2, 10),
+        (3, 11),
+        (4, 12),
+        (1, 13),
+        (1, 14),
+        (2, 15),
+        (2, 1),
+        (3, 2),
+        (3, 10),
         (4, 1);
 UNLOCK TABLES;
 
@@ -211,5 +253,9 @@ INSERT INTO `Colleges_Majors`
         (2, 3),
         (3, 2),
         (4, 4),
-        (4, 1);
+        (1, 4),
+        (2, 2),
+        (3, 3),
+        (4, 3),
+        (1, 2);
 UNLOCK TABLES;
