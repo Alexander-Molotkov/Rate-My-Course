@@ -1,11 +1,13 @@
-var express    = require("express");
-var mysql      = require("./dbcon.js");
-var app        = express();
-var bodyParser = require("body-parser");
-var handlebars = require("express-handlebars").create({defaultLayout: "main"});
+var express        = require("express");
+var mysql          = require("./dbcon.js");
+var app            = express();
+var bodyParser     = require("body-parser");
+var handlebars     = require("express-handlebars").create({defaultLayout: "main"});
+var methodOverride = require("method-override");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.engine("handlebars", handlebars.engine);
+app.use(methodOverride('_method'));
 app.set("view engine", "handlebars");
 app.set("port", 4745);
 
@@ -82,15 +84,16 @@ app.get("/course/:id", function(req, res, next){
 	var queryStringCourse = `SELECT Courses.courseID, 
 		Courses.courseTitle, 
 		Colleges.collegeName, 
-		Colleges.state, 
-		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle
+		Colleges.state
 	FROM Courses
 		INNER JOIN Colleges ON Courses.collegeID = Colleges.collegeID
-		INNER JOIN Majors_Courses ON Courses.courseID = Majors_Courses.courseID
-		INNER JOIN Majors ON Majors_Courses.majorID = Majors.majorID
 	WHERE 
-		Courses.courseID = ${mysql.pool.escape(Number(req.params.id))}
-	GROUP BY Courses.courseID;`;	
+		Courses.courseID = ${mysql.pool.escape(Number(req.params.id))};`;	
+	var queryStringMajors = `SELECT * 
+	FROM Majors 
+		INNER JOIN Majors_Courses ON Majors.majorID = Majors_Courses.majorID
+	WHERE
+		Majors_Courses.courseID = ${mysql.pool.escape(Number(req.params.id))};`;
 	var queryStringReviews = `SELECT Courses.courseTitle,
 		Colleges.collegeName, 
 		GROUP_CONCAT( Majors.majorTitle SEPARATOR ', ' ) as majorTitle, 
@@ -117,15 +120,23 @@ app.get("/course/:id", function(req, res, next){
 			return;
 		}
 		context.course = rows;
-		// Query for reviews information
-		mysql.pool.query(queryStringReviews, function(err, rows, fields){
+		// Query for majors information
+		mysql.pool.query(queryStringMajors, function(err, rows, fields){
 			if(err){
 				next(err);
 				return;
 			}
-			context.rows = rows;
-			console.log(context);
-			res.render("course", context);
+			context.majors = rows;
+			// Query for reviews information
+			mysql.pool.query(queryStringReviews, function(err, rows, fields){
+				if(err){
+					next(err);
+					return;
+				}
+				context.rows = rows;
+				console.log(context);
+				res.render("course", context);
+			});
 		});
 	});
 });

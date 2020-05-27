@@ -96,6 +96,12 @@ DELETE FROM Courses
 DELETE FROM Reviews
     WHERE Reviews.reviewID = :reviewIDInput;
 
+-- Delete Majors_Courses
+DELETE FROM Majors_Courses
+    WHERE 
+        Majors_Courses.courseID = :courseIDInput AND 
+        Majors_Courses.majorID = :majorIDInput;
+
 -- Edit review
 UPDATE Reviews
 SET

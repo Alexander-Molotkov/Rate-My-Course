@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `Colleges`;
 CREATE TABLE `Colleges`
 (
     `collegeID` int(11) NOT NULL AUTO_INCREMENT, 
-    `collegeName` varchar(30) NOT NULL,
+    `collegeName` varchar(255) NOT NULL,
 	`state` varchar(30) NOT NULL,
     PRIMARY KEY (`collegeID`)
 ) ENGINE=InnoDB;

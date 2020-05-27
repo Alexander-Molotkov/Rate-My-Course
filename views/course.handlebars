@@ -4,9 +4,24 @@
 
 <section id="header" class="jumbotron text-center container mt-4 py-4">
     <h4 class="display-4 mb-3">{{course.[0].courseTitle}}</h4>
-    <h5 class="card-title"><a class="text-dark">{{course.[0].collegeName}}, {{course.[0].state}}</h5>
-    <h5 class="card-title"><a class="text-dark">{{course.[0].majorTitle}}</h5>
-    <a href="" class="btn btn-danger">Delete Course</a>
+    <h5 class="card-title">{{course.[0].collegeName}}, {{course.[0].state}}</h5>
+    {{#each majors}}
+    <h6 class="card-subtitle mb-2 text-muted">
+        <form action="/majorsCourses?_method=DELETE" method="POST">
+            <div class="form-row justify-content-center align-items-center">
+                <input type="hidden" name="courseID" value="{{this.courseID}}">
+                <input type="hidden" name="majorID" value="{{this.majorID}}">
+                <div class="col-1">
+                    {{this.majorTitle}}   
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-sm btn-dark">Remove Major</button>
+                </div>
+            </div>
+        </form>
+    </h6>
+    {{/each}}
+    <a href="" class="btn btn-lg btn-warning">Delete Course</a>
 </section>
 
 <section id="reviews">
