@@ -141,6 +141,23 @@ app.get("/course/:id", function(req, res, next){
 	});
 });
 
+// DELETE ROUTE for Majors_Courses
+app.delete("/majorsCourses", function(req, res, next){
+	var queryString = `DELETE FROM Majors_Courses
+    WHERE 
+        Majors_Courses.courseID = ${req.body.courseID} AND 
+		Majors_Courses.majorID = ${req.body.majorID};`;
+	
+	console.log(queryString);
+	mysql.pool.query(queryString, function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		res.redirect("back");
+	});
+});
+
 // ----------------------------------------------
 // PROFILE PAGE
 // ----------------------------------------------
